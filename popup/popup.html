@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=400, initial-scale=1.0">
+  <title>Moctale Quick Access</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-brand">
+        <span class="header-icon">M</span>
+        <span class="header-title">Moctale</span>
+      </div>
+      <button id="refresh-btn" class="icon-btn" title="Refresh" aria-label="Refresh">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M23 4v6h-6M1 20v-6h6"/>
+          <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
+        </svg>
+      </button>
+    </header>
+
+    <!-- Loading State -->
+    <div id="state-loading" class="state">
+      <div class="loader"></div>
+      <p>Connecting to Moctale...</p>
+    </div>
+
+    <!-- Not Logged In State -->
+    <div id="state-not-logged-in" class="state hidden">
+      <div class="state-icon">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="12" cy="7" r="4"/>
+          <path d="M4 21v-2a4 4 0 014-4h8a4 4 0 014 4v2"/>
+        </svg>
+      </div>
+      <h2>Login Required</h2>
+      <p>Please log in to Moctale to use this extension.</p>
+      <button id="login-btn" class="btn btn-primary">Open Moctale Login</button>
+      <button id="open-moctale-btn" class="btn btn-secondary">Go to Moctale</button>
+    </div>
+
+    <!-- No Tab State -->
+    <div id="state-no-tab" class="state hidden">
+      <div class="state-icon">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <path d="M3 9h18"/>
+          <circle cx="7" cy="6" r="1"/>
+          <circle cx="10" cy="6" r="1"/>
+        </svg>
+      </div>
+      <h2>No Moctale Tab</h2>
+      <p>Open moctale.in in a browser tab to continue.</p>
+      <button id="open-tab-btn" class="btn btn-primary">Open Moctale</button>
+    </div>
+
+    <!-- Main Content (Logged In) -->
+    <div id="state-logged-in" class="state hidden">
+      <!-- Search Bar -->
+      <div class="search-container">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="M21 21l-4.35-4.35"/>
+        </svg>
+        <input
+          type="text"
+          id="search-input"
+          class="search-input"
+          placeholder="Search movies..."
+          autocomplete="off"
+        >
+        <button id="clear-search" class="clear-btn hidden" aria-label="Clear search">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 6L6 18M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Results Container -->
+      <div id="results-container" class="results-container">
+        <!-- Empty State -->
+        <div id="empty-state" class="empty-state">
+          <p>Search for a movie to see ratings and reviews</p>
+        </div>
+
+        <!-- Search Results -->
+        <div id="search-results" class="search-results hidden"></div>
+
+        <!-- Searching State -->
+        <div id="searching-state" class="searching-state hidden">
+          <div class="loader small"></div>
+          <p>Searching...</p>
+        </div>
+
+        <!-- No Results -->
+        <div id="no-results" class="no-results hidden">
+          <p>No movies found for your search.</p>
+        </div>
+
+        <!-- Error State -->
+        <div id="error-state" class="error-state hidden">
+          <p id="error-message"></p>
+          <button id="retry-btn" class="btn btn-secondary">Try Again</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer" class="footer hidden">
+      <div class="user-info">
+        <span id="user-status"></span>
+      </div>
+      <div class="credit">
+        Created by Suman Patgiri
+      </div>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
