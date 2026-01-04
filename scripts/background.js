@@ -125,14 +125,27 @@ async function ensureContentScriptInjected(tabId) {
  * Send message to content script in Moctale tab
  */
 async function sendToContentScript(message) {
-  const moctaleTab = await findMoctaleTab();
+  let moctaleTab = await findMoctaleTab();
 
+  // Auto-open Moctale tab in background if none exists
   if (!moctaleTab) {
-    return {
-      success: false,
-      error: 'NO_MOCTALE_TAB',
-      message: 'Please open moctale.in in a browser tab first'
-    };
+    const newTab = await chrome.tabs.create({
+      url: 'https://www.moctale.in/',
+      active: false  // Open in background
+    });
+
+    // Wait for the tab to finish loading
+    await new Promise((resolve) => {
+      const listener = (tabId, changeInfo) => {
+        if (tabId === newTab.id && changeInfo.status === 'complete') {
+          chrome.tabs.onUpdated.removeListener(listener);
+          resolve();
+        }
+      };
+      chrome.tabs.onUpdated.addListener(listener);
+    });
+
+    moctaleTab = newTab;
   }
 
   const injected = await ensureContentScriptInjected(moctaleTab.id);

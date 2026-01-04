@@ -71,13 +71,8 @@ moctale-extension/
 | `host_permissions` | Access moctale.in for API calls |
 
 ## Limitations
-<<<<<<< HEAD
- 
-- Requires an active moctale.in tab with logged-in session ( will be fixed in next update )
-=======
 
 - Requires an active moctale.in tab with logged-in session
->>>>>>> 30cb98e (first commit)
 - Only works when you're logged in to Moctale
 - Search results depend on Moctale's internal API
 
